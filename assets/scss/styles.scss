@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+}
+:root {
+  --soft-red: hsl(10, 79%, 65%);
+
+  --cyan: hsl(186, 34%, 60%);
+
+  --dark-brown: hsl(25, 47%, 15%);
+  --medium-brown: hsl(28, 10%, 53%);
+  --cream: hsl(27, 66%, 92%);
+  --very-pale-orange: hsl(33, 100%, 98%);
+}
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--cream);
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper {
+  width: 550px;
+}
+
+.header {
+  width: 100%;
+  background-color: var(--soft-red);
+  margin-bottom: 1rem;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  color: var(--very-pale-orange);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+  }
+  .balance-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__circles {
+    $circle-size: 50px;
+    $circle-margin: -$circle-size / 2;
+    .circle {
+      position: relative;
+      display: inline-block;
+      width: $circle-size;
+      height: $circle-size;
+      border: 2px solid var(--very-pale-orange);
+      border-radius: 50%;
+
+      padding: 0;
+      z-index: 2;
+      &.fill {
+        background-color: var(--dark-brown);
+        border-color: var(--dark-brown);
+        z-index: 1;
+      }
+      &:nth-child(1) {
+        margin-right: $circle-margin;
+      }
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  background-color: var(--very-pale-orange);
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  color: var(--dark-brown);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__chart {
+    width: 100%;
+
+    padding: 2rem 0;
+    .chart-bar {
+      width: 100%;
+      height: 12rem;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: flex-end;
+      .bar {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        height: 0;
+
+        .name {
+          position: absolute;
+          top: calc(100% + 1rem);
+          left: 50%;
+          transform: translateX(-50%);
+          color: var(--medium-brown);
+        }
+        .graph {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 0;
+          background: var(--soft-red);
+          border-radius: 10px;
+          transition: 0.3s ease-in-out;
+          cursor: pointer;
+          animation: height-animation 0.5s ease-in-out forwards;
+          .bar-amount {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            bottom: calc(100% + 0.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1rem;
+            color: var(--very-pale-orange);
+            background-color: var(--dark-brown);
+            border-radius: 5px;
+            padding: 0.5rem 0.7rem;
+            transition: 0.3s ease-in-out;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+          }
+
+          &:hover {
+            .bar-amount {
+              opacity: 1;
+              visibility: visible;
+            }
+
+            &::after {
+              opacity: 1;
+            }
+          }
+        }
+
+        &.max {
+          .graph {
+            background-color: var(--cyan);
+          }
+        }
+      }
+    }
+  }
+  .total {
+    padding: 2rem 0;
+    border-top: 1px solid var(--cream);
+    &__title {
+      font-size: 0.8rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: var(--medium-brown);
+    }
+    &__inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    &__amount {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .profit {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: right;
+      &__percent,
+      &__desc {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+      &__percent {
+        font-weight: 700;
+      }
+      &__desc {
+        color: var(--medium-brown);
+      }
+    }
+  }
+}
+
+@keyframes height-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Expenses chart component</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 1rem;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      .attribution a {
+        color: var(--soft-red);
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+      }
+      .attribution a:hover {
+        color: var(--dark-brown);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="wrapper">
+        <div class="header">
+          <div class="header__content">
+            <p class="header__title">My balance</p>
+            <span class="balance-amount">$921.48</span>
+          </div>
+          <div class="header__circles">
+            <span class="circle"></span>
+            <span class="circle fill"></span>
+          </div>
+        </div>
+        <article class="main">
+          <h1 class="main__title">Spending - Last 7 days</h1>
+          <div class="main__chart">
+            <div class="chart-bar" id="chart-bar"></div>
+          </div>
+
+          <div class="total">
+            <p class="total__title">Total this month</p>
+
+            <div class="total__inner">
+              <div class="total__amount">$478.33</div>
+
+              <div class="profit">
+                <span class="profit__percent">+2.4%</span>
+                <span class="profit__desc">from last month</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://github.com/kouroshking">Kourosh Damercheli</a>.
+    </div>
+    <script>
+      window.addEventListener("load", async () => {
+        const getData = async () => {
+          try {
+            const json = await fetch("./data.json");
+            const data = await json.json();
+
+            return data;
+          } catch (error) {
+            console.error(error);
+          }
+        };
+
+        const days = await getData();
+
+        const sumDays = (days) => {
+          let sum = 0;
+          days.forEach((day) => {
+            sum += day.amount;
+          });
+          return sum;
+        };
+
+        const getMax = (days) => {
+          const amounts = days.map((object) => {
+            return object.amount;
+          });
+
+          const max = Math.max(...amounts);
+          return max;
+        };
+
+        const daysSum = sumDays(days);
+        const maxAmount = getMax(days);
+
+        const chart = document.getElementById("chart-bar");
+        for (let day of days) {
+          const { day: name, amount } = day;
+
+          // creating bar
+          const bar = document.createElement("div");
+          bar.classList.add("bar");
+          if (amount === maxAmount) {
+            bar.classList.add("max");
+          }
+          // creting bar graph
+          const graph = document.createElement("div");
+          graph.classList.add("graph");
+
+          bar.style.height = `${(amount / maxAmount) * 100}%`;
+
+          // creating bar graph amount
+          const barAmount = document.createElement("div");
+          barAmount.classList.add("bar-amount");
+          barAmount.innerText = `$${amount}`;
+
+          graph.appendChild(barAmount);
+
+          bar.appendChild(graph);
+          // creating bar name
+          const barName = document.createElement("div");
+          barName.classList.add("name");
+          barName.innerText = name;
+
+          bar.appendChild(barName);
+          // adding the bar to the chart
+          chart.appendChild(bar);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+}
+
+:root {
+  --soft-red: hsl(10, 79%, 65%);
+  --cyan: hsl(186, 34%, 60%);
+  --dark-brown: hsl(25, 47%, 15%);
+  --medium-brown: hsl(28, 10%, 53%);
+  --cream: hsl(27, 66%, 92%);
+  --very-pale-orange: hsl(33, 100%, 98%);
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--cream);
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  width: 550px;
+}
+
+.header {
+  width: 100%;
+  background-color: var(--soft-red);
+  margin-bottom: 1rem;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  color: var(--very-pale-orange);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+}
+.header .balance-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.header__circles .circle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--very-pale-orange);
+  border-radius: 50%;
+  padding: 0;
+  z-index: 2;
+}
+.header__circles .circle.fill {
+  background-color: var(--dark-brown);
+  border-color: var(--dark-brown);
+  z-index: 1;
+}
+.header__circles .circle:nth-child(1) {
+  margin-right: -25px;
+}
+
+.main {
+  width: 100%;
+  background-color: var(--very-pale-orange);
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  color: var(--dark-brown);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main__title {
+  margin-bottom: 2rem;
+}
+.main__chart {
+  width: 100%;
+  padding: 2rem 0;
+}
+.main__chart .chart-bar {
+  width: 100%;
+  height: 12rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: flex-end;
+}
+.main__chart .chart-bar .bar {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  height: 0;
+}
+.main__chart .chart-bar .bar .name {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--medium-brown);
+}
+.main__chart .chart-bar .bar .graph {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background: var(--soft-red);
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  -webkit-animation: height-animation 0.5s ease-in-out forwards;
+          animation: height-animation 0.5s ease-in-out forwards;
+}
+.main__chart .chart-bar .bar .graph .bar-amount {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--very-pale-orange);
+  background-color: var(--dark-brown);
+  border-radius: 5px;
+  padding: 0.5rem 0.7rem;
+  transition: 0.3s ease-in-out;
+}
+.main__chart .chart-bar .bar .graph::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.main__chart .chart-bar .bar .graph:hover .bar-amount {
+  opacity: 1;
+  visibility: visible;
+}
+.main__chart .chart-bar .bar .graph:hover::after {
+  opacity: 1;
+}
+.main__chart .chart-bar .bar.max .graph {
+  background-color: var(--cyan);
+}
+.main .total {
+  padding: 2rem 0;
+  border-top: 1px solid var(--cream);
+}
+.main .total__title {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: var(--medium-brown);
+}
+.main .total__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.main .total__amount {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.main .total .profit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+}
+.main .total .profit__percent, .main .total .profit__desc {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.main .total .profit__percent {
+  font-weight: 700;
+}
+.main .total .profit__desc {
+  color: var(--medium-brown);
+}
+
+@-webkit-keyframes height-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes height-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}/*# sourceMappingURL=styles.css.map */
